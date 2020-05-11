@@ -8,8 +8,8 @@ class SLLNode:
 class Queue():
     def __init__(self, start=None):
         self.length = 1 if start is not None else 0
-        self.head = SLLNode(start)
-        self.tail = SLLNode(start)
+        self.head = SLLNode(start) if start else None
+        self.tail = SLLNode(start) if start else None
 
     def enqueue(self, value):
         if self.length == 0:

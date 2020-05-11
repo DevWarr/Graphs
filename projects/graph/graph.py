@@ -97,7 +97,28 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        if starting_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {starting_vertex}")
+        if destination_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {destination_vertex}")
+
+        visited = {starting_vertex: None}
+        q = Queue(starting_vertex)
+        while len(q) > 0:
+            vertex = q.dequeue()
+            for v in self.get_neighbors(vertex):
+
+                if v == destination_vertex:
+                    output = [v]
+                    while vertex is not None:
+                        output.append(vertex)
+                        vertex = visited.get(vertex)
+                    output.reverse()
+                    return output
+
+                elif v not in visited:
+                    visited[v] = vertex
+                    q.enqueue(v)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -105,9 +126,31 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        if starting_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {starting_vertex}")
+        if destination_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {destination_vertex}")
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+        visited = {starting_vertex: None}
+        s = Stack()
+        s.push(starting_vertex)
+        while len(s) > 0:
+            vertex = s.pop()
+            for v in self.get_neighbors(vertex):
+
+                if v == destination_vertex:
+                    output = [v]
+                    while vertex is not None:
+                        output.append(vertex)
+                        vertex = visited.get(vertex)
+                    output.reverse()
+                    return output
+
+                if v not in visited:
+                    visited[v] = vertex
+                    s.push(v)
+
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -115,7 +158,23 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        if starting_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {starting_vertex}")
+        if destination_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {destination_vertex}")
+
+        if starting_vertex == destination_vertex:
+            return [starting_vertex]
+
+        if visited is None:
+            visited = {starting_vertex: None}
+
+        for v in self.get_neighbors(starting_vertex):
+            if v not in visited:
+                visited[v] = True
+                arr = self.dfs_recursive(v, destination_vertex, visited)
+                if arr is not None:
+                    return [starting_vertex, *arr]
 
 
 if __name__ == '__main__':
