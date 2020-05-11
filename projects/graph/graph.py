@@ -3,9 +3,11 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
+
 class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
+
     def __init__(self):
         self.vertices = {}
 
@@ -13,33 +15,62 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 not in self.vertices:
+            raise KeyError(f"No vertex found with value {v1}")
+        if v2 not in self.vertices:
+            raise KeyError(f"No vertex found with value {v2}")
+        else:
+            self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices.get(vertex_id)
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        if starting_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {starting_vertex}")
+
+        visited = {starting_vertex: True}
+        q = Queue(starting_vertex)
+        while len(q) > 0:
+            vertex = q.dequeue()
+            for v in self.get_neighbors(vertex):
+                if v not in visited:
+                    visited[v] = True
+                    q.enqueue(v)
+            print(vertex, end=", " if len(q) > 0 else "\n")
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        if starting_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {starting_vertex}")
+
+        visited = {starting_vertex: True}
+        s = Stack()
+        s.push(starting_vertex)
+        while len(s) > 0:
+            vertex = s.pop()
+            for v in self.get_neighbors(vertex):
+                if v not in visited:
+                    visited[v] = True
+                    s.push(v)
+            print(vertex, end=", " if len(s) > 0 else "\n")
 
     def dft_recursive(self, starting_vertex):
         """
@@ -48,6 +79,8 @@ class Graph:
 
         This should be done using recursion.
         """
+        if starting_vertex not in self.vertices:
+            raise KeyError(f"No vertex found with value {starting_vertex}")
         pass  # TODO
 
     def bfs(self, starting_vertex, destination_vertex):
@@ -75,6 +108,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
