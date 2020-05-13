@@ -51,7 +51,7 @@ class Graph:
                 if v not in visited:
                     visited[v] = True
                     q.enqueue(v)
-            print(vertex, end=", " if len(q) > 0 else "\n")
+            print(vertex)
 
     def dft(self, starting_vertex):
         """
@@ -70,7 +70,7 @@ class Graph:
                 if v not in visited:
                     visited[v] = True
                     s.push(v)
-            print(vertex, end=", " if len(s) > 0 else "\n")
+            print(vertex)
 
     def dft_recursive(self, starting_vertex, visited=None):
         """
@@ -85,7 +85,7 @@ class Graph:
         if visited is None:
             visited = {starting_vertex: True}
 
-        print(starting_vertex, end=", ")
+        print(starting_vertex)
         for v in self.get_neighbors(starting_vertex):
             if v not in visited:
                 visited[v] = True
