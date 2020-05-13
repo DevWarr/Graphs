@@ -3,7 +3,6 @@
 class Room:
     def __init__(self, name, description, id=0, x=None, y=None):
         self.id = id
-        self.visited = False
         self.name = name
         self.description = description
         self.n_to = None
