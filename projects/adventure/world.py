@@ -34,7 +34,7 @@ class World:
                 self.rooms[room_id].connect_rooms('w', self.rooms[room_graph[room_id][1]['w']])
         self.starting_room = self.rooms[0]
 
-    def print_rooms(self, visited):
+    def print_rooms(self):
         rotated_room_grid = []
         for i in range(0, len(self.room_grid)):
             rotated_room_grid.append([None] * len(self.room_grid))
@@ -67,10 +67,7 @@ class World:
                 else:
                     str += " "
                 if room is not None:
-                    if room in visited:
-                        str += "\u001b[33m" + f"{room.id}".zfill(3) + "\u001b[0m"
-                    else:
-                        str += f"{room.id}".zfill(3)
+                    str += f"{room.id}".zfill(3)
                 else:
                     str += "   "
                 if room is not None and room.e_to is not None:
