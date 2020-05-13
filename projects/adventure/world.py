@@ -67,7 +67,10 @@ class World:
                 else:
                     str += " "
                 if room is not None:
-                    str += f"{room.id}".zfill(3)
+                    if room.visited:
+                        str += "\u001b[33m" + f"{room.id}".zfill(3) + "\u001b[0m"
+                    else:
+                        str += f"{room.id}".zfill(3)
                 else:
                     str += "   "
                 if room is not None and room.e_to is not None:
